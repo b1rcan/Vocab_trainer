@@ -11,42 +11,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VocabTrainer">
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
 
-        <!-- LOGIN = AÇILIŞ EKRANI -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- ANA EKRAN -->
+        </activity> <!-- ANA EKRAN -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.wordlearning.WordLearningActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.quiz.QuizActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.wordlist.WordListActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.review.ReviewActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.profile.ProfileActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>
