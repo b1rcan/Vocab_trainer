@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/bg_page">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/orange" android:orientation="horizontal"
+        android:gravity="center_vertical" android:padding="16dp" android:paddingTop="40dp">
+        <Button android:id="@+id/btnBack" android:layout_width="wrap_content"
+            android:layout_height="36dp" android:background="@drawable/bg_white_btn"
+            android:text="← Geri" android:textColor="@color/orange" android:textSize="13sp"
+            android:stateListAnimator="@null" android:paddingHorizontal="12dp"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Quiz"
+            android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold"
+            android:gravity="center"/>
+        <TextView android:id="@+id/tvScore" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="0 ✓"
+            android:textColor="#FFDDBB" android:textSize="14sp" android:textStyle="bold"/>
+    </LinearLayout>
+
+    <ProgressBar android:id="@+id/progressQuiz"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent" android:layout_height="6dp"
+        android:progressDrawable="@drawable/progress_bar" android:max="100" android:progress="0"/>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
+
+        <TextView android:id="@+id/tvQuestionNum"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Soru 1 / 10" android:textColor="@color/text_gray"
+            android:textSize="12sp" android:layout_marginBottom="10dp"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:background="@drawable/bg_card" android:orientation="vertical"
+            android:padding="24dp" android:gravity="center" android:layout_marginBottom="16dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Bu kelimenin anlamı nedir?"
+                android:textColor="@color/text_gray" android:textSize="13sp" android:layout_marginBottom="10dp"/>
+            <TextView android:id="@+id/tvQuizWord" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Resilient"
+                android:textColor="@color/text_main" android:textSize="30sp" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <Button android:id="@+id/btnOpt1" android:layout_width="match_parent"
+            android:layout_height="48dp" android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_white_btn" android:text="A) ..."
+            android:textColor="@color/text_main" android:textSize="14sp"
+            android:gravity="center_vertical|start" android:paddingHorizontal="16dp"
+            android:stateListAnimator="@null"/>
+        <Button android:id="@+id/btnOpt2" android:layout_width="match_parent"
+            android:layout_height="48dp" android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_white_btn" android:text="B) ..."
+            android:textColor="@color/text_main" android:textSize="14sp"
+            android:gravity="center_vertical|start" android:paddingHorizontal="16dp"
+            android:stateListAnimator="@null"/>
+        <Button android:id="@+id/btnOpt3" android:layout_width="match_parent"
+            android:layout_height="48dp" android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_white_btn" android:text="C) ..."
+            android:textColor="@color/text_main" android:textSize="14sp"
+            android:gravity="center_vertical|start" android:paddingHorizontal="16dp"
+            android:stateListAnimator="@null"/>
+        <Button android:id="@+id/btnOpt4" android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_white_btn" android:text="D) ..."
+            android:textColor="@color/text_main" android:textSize="14sp"
+            android:gravity="center_vertical|start" android:paddingHorizontal="16dp"
+            android:stateListAnimator="@null"/>
+    </LinearLayout>
+</LinearLayout>
