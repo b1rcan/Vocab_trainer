@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <!-- Siyah Başlık Alanı -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black_main"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:paddingTop="48dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quiz"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvQuestionNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soru 1 / 10"
+            android:textColor="@color/gray_text"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- İlerleme Çubuğu -->
+    <ProgressBar
+        android:id="@+id/progressQuiz"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:progressDrawable="@drawable/progress_bar"
+        android:max="100" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Geri Butonu ve Skor[cite: 5] -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="← Geri"
+                android:textColor="@color/black_main"
+                android:backgroundTint="@color/gray_bg"
+                android:textSize="12sp"
+                android:stateListAnimator="@null" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 ✓"
+                android:textColor="@color/indigo"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Soru Kartı -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_border_card"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bu kelimenin anlamı nedir?"
+                android:textColor="@color/gray_text"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvQuizWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resilient"
+                android:textColor="@color/black_main"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Seçenek Butonları[cite: 5] -->
+        <Button
+            android:id="@+id/btnOpt1"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/gray_bg"
+            android:textColor="@color/black_main"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnOpt2"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/gray_bg"
+            android:textColor="@color/black_main"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnOpt3"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/gray_bg"
+            android:textColor="@color/black_main"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnOpt4"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:backgroundTint="@color/gray_bg"
+            android:textColor="@color/black_main"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+</LinearLayout>

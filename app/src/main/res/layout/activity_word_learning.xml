@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/bg_page">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/orange" android:orientation="horizontal"
+        android:gravity="center_vertical" android:padding="16dp" android:paddingTop="40dp">
+        <Button android:id="@+id/btnBack" android:layout_width="wrap_content"
+            android:layout_height="36dp" android:background="@drawable/bg_white_btn"
+            android:text="← Geri" android:textColor="@color/orange" android:textSize="13sp"
+            android:stateListAnimator="@null" android:paddingHorizontal="12dp"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Kelime Öğren"
+            android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold"
+            android:gravity="center"/>
+        <TextView android:id="@+id/tvIndex" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="1/10"
+            android:textColor="#FFDDBB" android:textSize="13sp"/>
+    </LinearLayout>
+
+    <ProgressBar android:id="@+id/progressWord"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent" android:layout_height="6dp"
+        android:progressDrawable="@drawable/progress_bar" android:max="100" android:progress="10"/>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:scrollbars="none">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="16dp">
+
+            <!-- Kelime kutusu -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="@drawable/bg_card" android:orientation="vertical"
+                android:padding="24dp" android:gravity="center" android:layout_marginBottom="12dp">
+                <TextView android:id="@+id/tvWord" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Eloquent"
+                    android:textColor="@color/text_main" android:textSize="34sp" android:textStyle="bold"/>
+                <TextView android:id="@+id/tvPhonetic" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="/ˈɛl.ə.kwənt/"
+                    android:textColor="@color/orange" android:textSize="15sp" android:layout_marginTop="4dp"/>
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/border" android:layout_marginVertical="16dp"/>
+                <TextView android:id="@+id/tvMeaning" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Akıcı, belagatlı"
+                    android:textColor="@color/text_main" android:textSize="20sp" android:gravity="center"/>
+                <TextView android:id="@+id/tvExample" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="She gave an eloquent speech."
+                    android:textColor="@color/text_gray" android:textSize="13sp"
+                    android:gravity="center" android:layout_marginTop="12dp"/>
+            </LinearLayout>
+
+            <Button android:id="@+id/btnAudio" android:layout_width="match_parent"
+                android:layout_height="44dp" android:background="@drawable/bg_white_btn"
+                android:text="🔊  Telaffuzu Dinle" android:textColor="@color/text_main"
+                android:textSize="14sp" android:stateListAnimator="@null" android:layout_marginBottom="12dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:padding="16dp" android:paddingTop="8dp"
+        android:background="@color/white">
+        <Button android:id="@+id/btnAgain" android:layout_width="0dp" android:layout_height="48dp"
+            android:layout_weight="1" android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_white_btn" android:text="🔄  Tekrar"
+            android:textColor="@color/text_main" android:textSize="14sp" android:stateListAnimator="@null"/>
+        <Button android:id="@+id/btnLearned" android:layout_width="0dp" android:layout_height="48dp"
+            android:layout_weight="1" android:layout_marginStart="8dp"
+            android:background="@drawable/bg_orange_btn" android:text="✅  Öğrendim"
+            android:textColor="@color/white" android:textSize="14sp" android:stateListAnimator="@null"/>
+    </LinearLayout>
+</LinearLayout>

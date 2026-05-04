@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VocabTrainer</string>
+    <string name="start_learning">Öğrenmeye Başla →</string>
+    <string name="nav_home">Ana Sayfa</string>
+    <string name="nav_words">Kelimeler</string>
+    <string name="nav_quiz">Quiz</string>
+    <string name="nav_review">Tekrar</string>
+    <string name="nav_profile">Profil</string>
+</resources>
