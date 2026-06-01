@@ -5,9 +5,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.lifecycleScope
 import com.example.vocabtrainer.databinding.ActivityMainBinding
+import com.example.vocabtrainer.data.local.UserNamePrefs
 import com.example.vocabtrainer.notification.NotificationHelper
 import com.example.vocabtrainer.streak.StreakManager
+import com.example.vocabtrainer.sync.SyncManager
 import com.example.vocabtrainer.sync.SyncScheduler
 import com.example.vocabtrainer.ui.WordViewModel
 import com.example.vocabtrainer.ui.profile.ProfileActivity
@@ -17,12 +20,15 @@ import com.example.vocabtrainer.ui.wordlearning.WordLearningActivity
 import com.example.vocabtrainer.ui.wordlist.WordAdapter
 import com.example.vocabtrainer.ui.wordlist.WordListActivity
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var streakManager: StreakManager
+    private lateinit var userNamePrefs: UserNamePrefs
     private val vm: WordViewModel by viewModels()
     private val dailyGoal = 20
 
@@ -33,17 +39,27 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         streakManager = StreakManager(this)
+        userNamePrefs = UserNamePrefs(this)
 
         NotificationHelper.createChannel(this)
         NotificationHelper.schedule(this)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            SyncManager(applicationContext).sync()
+        }
 
         SyncScheduler.enqueueOneTime(this)
         SyncScheduler.enqueueRecurring(this)
 
         auth.currentUser?.let { user ->
+            val displayName = user.displayName?.trim().takeUnless { it.isNullOrEmpty() }
+                ?: userNamePrefs.getName()
+                ?: user.email?.substringBefore("@")
+                ?: getString(R.string.profile_default_name)
+            userNamePrefs.saveName(displayName)
             b.tvGreeting.text = getString(
                 R.string.greeting_user,
-                user.displayName?.trim().takeUnless { it.isNullOrEmpty() } ?: getString(R.string.profile_default_name)
+                displayName
             )
         }
 

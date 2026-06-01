@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vocabtrainer.R
 import com.example.vocabtrainer.LoginActivity
+import com.example.vocabtrainer.data.local.UserNamePrefs
 import com.example.vocabtrainer.databinding.ActivityProfileBinding
 import com.example.vocabtrainer.notification.NotificationHelper
 import com.example.vocabtrainer.streak.StreakManager
@@ -17,6 +18,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var b: ActivityProfileBinding
     private val vm: WordViewModel by viewModels()
     private lateinit var streakManager: StreakManager
+    private lateinit var userNamePrefs: UserNamePrefs
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreate(s: Bundle?) {
@@ -25,9 +27,13 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(b.root)
 
         streakManager = StreakManager(this)
+        userNamePrefs = UserNamePrefs(this)
 
         val displayName = auth.currentUser?.displayName?.trim().takeUnless { it.isNullOrEmpty() }
+            ?: userNamePrefs.getName()
+            ?: auth.currentUser?.email?.substringBefore("@")
             ?: getString(R.string.profile_default_name)
+        userNamePrefs.saveName(displayName)
         b.tvName.text = displayName
         b.tvAvatarInitial.text = displayName.firstOrNull()?.uppercaseChar()?.toString() ?: "?"
 
