@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VocabTrainer</string>
+    <string name="profile_default_name">Kullanıcı</string>
+    <string name="greeting_user">Merhaba, %1$s :)</string>
+    <string name="daily_goal">Bugünkü hedefin: %1$d kelime</string>
+    <string name="daily_progress">Günlük İlerleme</string>
+    <string name="learned_label">Öğrenilen</string>
+    <string name="accuracy_label">Doğruluk</string>
+    <string name="streak_label">Gün serisi</string>
+    <string name="recent_words_label">Son öğrenilenler</string>
+    <string name="login_title">Yeni Bir Dil Öğrenmeye Başlayalım</string>
+    <string name="email_hint">E-posta</string>
+    <string name="password_hint">Şifre</string>
+    <string name="login_button">Giriş Yap</string>
+    <string name="register_button">Kayıt Ol</string>
+    <string name="register_title">Yeni kayıt oluştur</string>
+    <string name="name_hint">İsim</string>
+    <string name="password_again_hint">Şifre Tekrar</string>
+    <string name="register_name_empty">Lütfen adını gir.</string>
+    <string name="register_fields_empty">Lütfen her yeri doldur!</string>
+    <string name="register_password_mismatch">Şifreler uyuşmuyor.</string>
+    <string name="login_empty_fields">Boş bırakma</string>
+    <string name="login_error_prefix">Hata: %1$s</string>
+    <string name="register_error_prefix">Hata: %1$s</string>
+    <string name="welcome_user">Hoş geldin %1$s!</string>
+    <string name="profile_update_failed">Profil güncellenemedi</string>
     <string name="start_learning">Öğrenmeye Başla →</string>
     <string name="nav_home">Ana Sayfa</string>
     <string name="nav_words">Kelimeler</string>

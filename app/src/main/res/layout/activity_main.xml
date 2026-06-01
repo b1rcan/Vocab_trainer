@@ -9,11 +9,11 @@
         android:padding="16dp" android:paddingTop="40dp">
 
         <TextView android:id="@+id/tvGreeting" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="Merhaba, Kullanıcı :)"
+            android:layout_height="wrap_content" android:text=""
             android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Bugünkü hedefin: 20 kelime" android:textColor="#FFDDBB"
+            android:text="@string/daily_goal" android:textColor="#FFDDBB"
             android:textSize="13sp" android:layout_marginTop="2dp"/>
     </LinearLayout>
 
@@ -27,7 +27,7 @@
                 android:background="@drawable/bg_card" android:orientation="vertical"
                 android:padding="14dp" android:layout_marginBottom="10dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Günlük İlerleme" android:textColor="@color/text_gray"
+                    android:text="@string/daily_progress" android:textColor="@color/text_gray"
                     android:textSize="12sp" android:layout_marginBottom="8dp"/>
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="horizontal" android:gravity="center_vertical">
@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content" android:text="0"
                         android:textColor="@color/text_main" android:textSize="22sp" android:textStyle="bold"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Öğrenilen" android:textColor="@color/text_gray" android:textSize="11sp"/>
+                        android:text="@string/learned_label" android:textColor="@color/text_gray" android:textSize="11sp"/>
                 </LinearLayout>
 
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
@@ -62,10 +62,10 @@
                     android:orientation="vertical" android:padding="12dp"
                     android:gravity="center" android:layout_marginHorizontal="5dp">
                     <TextView android:id="@+id/tvAccuracy" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="%0"
+                        android:layout_height="wrap_content" android:text="0%"
                         android:textColor="@color/orange" android:textSize="22sp" android:textStyle="bold"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Doğruluk" android:textColor="@color/text_gray" android:textSize="11sp"/>
+                        android:text="@string/accuracy_label" android:textColor="@color/text_gray" android:textSize="11sp"/>
                 </LinearLayout>
 
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content" android:text="0"
                         android:textColor="@color/text_main" android:textSize="22sp" android:textStyle="bold"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Gün serisi" android:textColor="@color/text_gray" android:textSize="11sp"/>
+                        android:text="@string/streak_label" android:textColor="@color/text_gray" android:textSize="11sp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -87,7 +87,7 @@
                 android:stateListAnimator="@null" android:layout_marginBottom="16dp"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Son öğrenilenler" android:textColor="@color/text_gray"
+                android:text="@string/recent_words_label" android:textColor="@color/text_gray"
                 android:textSize="12sp" android:layout_marginBottom="8dp"/>
 
             <androidx.recyclerview.widget.RecyclerView

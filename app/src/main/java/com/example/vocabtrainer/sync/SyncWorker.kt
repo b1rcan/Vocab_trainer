@@ -20,7 +20,7 @@ class SyncWorker(
 
     companion object {
         private const val TAG = "SyncWorker"
-        const val WORK_NAME = "vocab_firestore_sync"
+        const val WORK_NAME = "vocab_rtdb_sync"
     }
 
     override suspend fun doWork(): Result {

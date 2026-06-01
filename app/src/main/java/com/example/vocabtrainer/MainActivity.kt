@@ -40,17 +40,17 @@ class MainActivity : AppCompatActivity() {
         SyncScheduler.enqueueOneTime(this)
         SyncScheduler.enqueueRecurring(this)
 
-        // Kullanıcı selamlama
         auth.currentUser?.let { user ->
-            b.tvGreeting.text = "Merhaba, ${user.displayName ?: "Kullanıcı"} :)"
+            b.tvGreeting.text = getString(
+                R.string.greeting_user,
+                user.displayName?.trim().takeUnless { it.isNullOrEmpty() } ?: getString(R.string.profile_default_name)
+            )
         }
 
-        // RecyclerView
         val adapter = WordAdapter {}
         b.rvRecentWords.layoutManager = LinearLayoutManager(this)
         b.rvRecentWords.adapter = adapter
 
-        // İstatistikler
         vm.learned.observe(this) { words ->
             adapter.submitList(words.take(5))
             val done = words.size.coerceAtMost(dailyGoal)
@@ -62,10 +62,8 @@ class MainActivity : AppCompatActivity() {
             b.tvAccuracy.text = if (c + w > 0) "%${c * 100 / (c + w)}" else "%0"
         }
 
-        // Streak — SharedPrefs'ten okunur, quiz bitince güncellenir
         b.tvStreak.text = streakManager.getStreak().toString()
 
-        // Navigasyon
         b.btnStart.setOnClickListener {
             startActivity(Intent(this, WordLearningActivity::class.java).putExtra("mode", "daily"))
         }
@@ -76,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         b.navHome.setOnClickListener    { }
     }
 
-    // Quiz'den dönünce streak güncellenmiş olabilir, yenile
     override fun onResume() {
         super.onResume()
         b.tvStreak.text = streakManager.getStreak().toString()

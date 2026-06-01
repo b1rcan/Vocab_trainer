@@ -7,16 +7,7 @@ import com.example.vocabtrainer.R
 import com.example.vocabtrainer.data.local.Word
 import com.example.vocabtrainer.sync.Identifiable
 import com.example.vocabtrainer.sync.SeenWordsPrefs
-const val DAILY_WORD_COUNT =20;
-/**
- * [Word] için [ListAdapter].
- *
- * Firestore → Room → ViewModel akışı zaten LiveData üzerinden geliyor;
- * adapter sadece sunumu yapar.
- *
- * [SeenWordsPrefs] entegrasyonu ViewModel katmanında yapılır (bkz. WordViewModel),
- * adapter bunu bilmez — tek sorumluluğu listeyi render etmek.
- */
+const val DAILY_WORD_COUNT = 20
 class WordAdapter(private val onClick: (Word) -> Unit) :
     ListAdapter<Word, WordAdapter.VH>(Diff()) {
 
@@ -44,31 +35,15 @@ class WordAdapter(private val onClick: (Word) -> Unit) :
     }
 }
 
-// ── Word → Identifiable bridge ────────────────────────────────────────────────
-
-/**
- * [Word]'ü [SeenWordsPrefs.getUnseen] ile kullanabilmek için extension.
- * Word entity'sine dokunmadan interface'i karşılar.
- */
 val Word.asIdentifiable: Identifiable
     get() = object : Identifiable {
         override val wordId: Int get() = this@asIdentifiable.id
     }
-
-/**
- * Verilen listeden [DAILY_WORD_COUNT] kadar görülmemiş kelime döner.
- * Kullanım (ViewModel içinde):
- *
- *   val daily = allWords.pickUnseen(seenPrefs).shuffled()
- *   adapter.submitList(daily)
- *   seenPrefs.markSeen(daily.map { it.id })
- */
 fun List<Word>.pickUnseen(prefs: SeenWordsPrefs): List<Word> {
-    // Word listesini Identifiable wrapper'a çevir, unseen filtrele
     data class WordId(override val wordId: Int, val word: Word) : Identifiable
 
-    val wrapped  = map { WordId(it.id, it) }
-    val unseen   = prefs.getUnseen(wrapped)   // sıfırlama mantığı burada
+    val wrapped = map { WordId(it.id, it) }
+    val unseen = prefs.getUnseen(wrapped)
     return unseen
         .shuffled()
         .take(DAILY_WORD_COUNT)

@@ -21,12 +21,18 @@ class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         b.btnRegister.setOnClickListener {
-            val name = b.etRegisterName.text.toString().trim() // İsimimizin alanı buaray gelcek
+            val name = b.etRegisterName.text.toString().trim()
             val email = b.etRegisterEmail.text.toString().trim()
             val pass = b.etRegisterPassword.text.toString().trim()
+            val passAgain = b.etRegisterPasswordAgain.text.toString().trim()
 
-            if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Lütfen her yeri doldur!", Toast.LENGTH_SHORT).show()
+            if (name.isEmpty() || email.isEmpty() || pass.isEmpty() || passAgain.isEmpty()) {
+                Toast.makeText(this, getString(R.string.register_fields_empty), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (pass != passAgain) {
+                Toast.makeText(this, getString(R.string.register_password_mismatch), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -40,15 +46,19 @@ class RegisterActivity : AppCompatActivity() {
 
                     user?.updateProfile(profileUpdates)?.addOnCompleteListener { profileTask ->
                         if (profileTask.isSuccessful) {
-                            Toast.makeText(this, "Hoş geldin $name!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, getString(R.string.welcome_user, name), Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
-                            Toast.makeText(this, "Profil güncellenemedi", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, getString(R.string.profile_update_failed), Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    Toast.makeText(this, "Hata: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.register_error_prefix, task.exception?.message.orEmpty()),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

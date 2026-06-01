@@ -15,20 +15,20 @@
         android:gravity="center"
         android:textColorHighlight="@color/orange"
         android:layout_margin="20dp"
-        android:text="Yeni Bir Dil Öğrenmeye Başlayalım"
+        android:text="@string/login_title"
         android:textStyle="bold"
         android:textColor="@color/orange"/>
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="E-posta" />
+        android:hint="@string/email_hint" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Şifre"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:layout_marginTop="10dp"/>
 
@@ -36,13 +36,13 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Giriş Yap"
+        android:text="@string/login_button"
         android:layout_marginTop="20dp"/>
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Kayıt Ol"
+        android:text="@string/register_button"
         android:layout_marginTop="20dp"/>
 </LinearLayout>

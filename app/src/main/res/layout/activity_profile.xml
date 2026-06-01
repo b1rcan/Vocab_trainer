@@ -8,7 +8,7 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:background="@color/orange" android:orientation="vertical"
             android:padding="16dp" android:paddingTop="40dp" android:gravity="center">
-            <TextView android:layout_width="72dp" android:layout_height="72dp"
+            <TextView android:id="@+id/tvAvatarInitial" android:layout_width="72dp" android:layout_height="72dp"
                 android:background="@drawable/bg_white_btn" android:text="A"
                 android:textColor="@color/orange" android:textSize="28sp" android:textStyle="bold"
                 android:gravity="center" android:layout_marginBottom="10dp"/>
@@ -53,7 +53,7 @@
                 android:orientation="vertical" android:padding="12dp" android:gravity="center"
                 android:layout_marginBottom="10dp">
                 <TextView android:id="@+id/tvStatAcc" android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:text="%0"
+                    android:layout_height="wrap_content" android:text="0%"
                     android:textColor="@color/orange" android:textSize="24sp" android:textStyle="bold"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="Doğruluk Oranı" android:textColor="@color/text_gray" android:textSize="11sp"/>

@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
             val pass = b.etPassword.text.toString().trim()
 
             if (email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Boş bırakma", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.login_empty_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -50,7 +50,11 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     } else {
 
-                        Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            getString(R.string.login_error_prefix, task.exception?.message.orEmpty()),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
         }

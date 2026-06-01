@@ -5,14 +5,15 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.vocabtrainer.data.local.AppDatabase
 import com.example.vocabtrainer.data.local.Word
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.vocabtrainer.data.remote.FirebaseRealtimeDatabaseClient
+import com.google.firebase.database.DataSnapshot
 import kotlinx.coroutines.tasks.await
 
 /**
- * Firestore <-> Room sync logic.
+ * Firebase Realtime Database <-> Room sync logic.
  *
  * Strategy:
- *  1. Fetch meta/version from Firestore.
+ *  1. Fetch meta/version from Realtime Database.
  *  2. Compare with locally stored schemaVersion in SharedPreferences.
  *  3. If remote > local  →  bulk-fetch words collection, upsert into Room,
  *     then persist new version number.
@@ -28,14 +29,13 @@ class SyncManager(private val context: Context) {
         private const val PREFS_NAME = "vocab_sync_prefs"
         private const val KEY_LOCAL_VERSION = "local_schema_version"
 
-        // Firestore paths
+        // Realtime Database paths
         private const val COL_WORDS = "words"
         private const val COL_META = "meta"
         private const val DOC_VERSION = "version"
         private const val FIELD_SCHEMA_VERSION = "schemaVersion"
     }
 
-    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     private val db: AppDatabase by lazy { AppDatabase.get(context) }
     private val prefs: SharedPreferences by lazy {
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -50,7 +50,7 @@ class SyncManager(private val context: Context) {
             val remoteVersion = fetchRemoteVersion()
 
             if (remoteVersion == null) {
-                Log.w(TAG, "meta/version document not found – skipping sync")
+                Log.w(TAG, "meta/version node not found – skipping sync")
                 return SyncResult.Skipped("meta/version missing")
             }
 
@@ -63,7 +63,7 @@ class SyncManager(private val context: Context) {
             }
 
             val words = fetchAllWords()
-            Log.d(TAG, "Fetched ${words.size} words from Firestore")
+            Log.d(TAG, "Fetched ${words.size} words from Realtime Database")
 
             upsertToRoom(words)
             saveLocalVersion(remoteVersion)
@@ -80,24 +80,26 @@ class SyncManager(private val context: Context) {
     // ── Private helpers ──────────────────────────────────────────────────────
 
     private suspend fun fetchRemoteVersion(): Int? {
-        val snapshot = firestore
-            .collection(COL_META)
-            .document(DOC_VERSION)
+        val snapshot = FirebaseRealtimeDatabaseClient
+            .root
+            .child(COL_META)
+            .child(DOC_VERSION)
             .get()
             .await()
 
-        return snapshot.getLong(FIELD_SCHEMA_VERSION)?.toInt()
+        return snapshot.child(FIELD_SCHEMA_VERSION).getValue(Long::class.java)?.toInt()
     }
 
     private suspend fun fetchAllWords(): List<Word> {
-        val snapshot = firestore
-            .collection(COL_WORDS)
+        val snapshot = FirebaseRealtimeDatabaseClient
+            .root
+            .child(COL_WORDS)
             .get()
             .await()
 
-        return snapshot.documents.mapNotNull { doc ->
-            runCatching { doc.toWord() }
-                .onFailure { Log.w(TAG, "Skipping malformed doc ${doc.id}", it) }
+        return snapshot.children.mapNotNull { child ->
+            runCatching { child.toWord() }
+                .onFailure { Log.w(TAG, "Skipping malformed node ${child.key}", it) }
                 .getOrNull()
         }
     }
@@ -113,12 +115,12 @@ class SyncManager(private val context: Context) {
     }
 }
 
-// ── Firestore document → Word mapping ────────────────────────────────────────
+// ── Realtime Database node → Word mapping ────────────────────────────────────
 
 /**
- * Maps a Firestore document to the local [Word] entity.
+ * Maps a Realtime Database node to the local [Word] entity.
  *
- * Fields expected in each words/{docId} document:
+ * Fields expected in each words/{nodeId} node:
  *   word            (String)  required
  *   meaning         (String)  required
  *   exampleSentence (String)  optional
@@ -126,16 +128,16 @@ class SyncManager(private val context: Context) {
  *   audioUrl        (String)  optional
  *
  * NOTE: isLearned / correctCount / wrongCount / lastReviewDate are
- * intentionally NOT synced from Firestore – they are user-specific data
+ * intentionally NOT synced from Realtime Database – they are user-specific data
  * that lives only in Room.
  */
-private fun com.google.firebase.firestore.DocumentSnapshot.toWord(): Word {
+private fun DataSnapshot.toWord(): Word {
     return Word(
-        word            = getString("word")            ?: error("missing 'word'"),
-        meaning         = getString("meaning")         ?: error("missing 'meaning'"),
-        exampleSentence = getString("exampleSentence") ?: "",
-        phonetic        = getString("phonetic")        ?: "",
-        audioUrl        = getString("audioUrl")        ?: "",
+        word            = child("word").getValue(String::class.java) ?: error("missing 'word'"),
+        meaning         = child("meaning").getValue(String::class.java) ?: error("missing 'meaning'"),
+        exampleSentence = child("exampleSentence").getValue(String::class.java) ?: "",
+        phonetic        = child("phonetic").getValue(String::class.java) ?: "",
+        audioUrl        = child("audioUrl").getValue(String::class.java) ?: "",
         // Preserve user-specific fields at their Room defaults (not overwritten).
         isLearned       = false,
         correctCount    = 0,

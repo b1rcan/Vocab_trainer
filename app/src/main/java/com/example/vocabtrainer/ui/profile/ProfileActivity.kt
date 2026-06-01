@@ -7,12 +7,14 @@ import com.example.vocabtrainer.databinding.ActivityProfileBinding
 import com.example.vocabtrainer.notification.NotificationHelper
 import com.example.vocabtrainer.streak.StreakManager
 import com.example.vocabtrainer.ui.WordViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityProfileBinding
     private val vm: WordViewModel by viewModels()
     private lateinit var streakManager: StreakManager
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreate(s: Bundle?) {
         super.onCreate(s)
@@ -20,6 +22,11 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(b.root)
 
         streakManager = StreakManager(this)
+
+        val displayName = auth.currentUser?.displayName?.trim().takeUnless { it.isNullOrEmpty() }
+            ?: getString(R.string.profile_default_name)
+        b.tvName.text = displayName
+        b.tvAvatarInitial.text = displayName.firstOrNull()?.uppercaseChar()?.toString() ?: "?"
 
         // Toplam kelime sayısı
         vm.all.observe(this) { words ->
