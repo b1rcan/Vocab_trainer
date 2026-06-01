@@ -30,10 +30,14 @@ class SyncManager(private val context: Context) {
         private const val KEY_LOCAL_VERSION = "local_schema_version"
 
         // Realtime Database paths
-        private const val COL_WORDS = "words"
+        // NOTE: Words are stored at root level with numeric keys ("0", "1", ..., "100").
+        //       "meta" and "users" are non-word nodes and must be excluded.
         private const val COL_META = "meta"
         private const val DOC_VERSION = "version"
         private const val FIELD_SCHEMA_VERSION = "schemaVersion"
+
+        /** Node keys at root level that are NOT word entries. */
+        private val EXCLUDED_ROOT_KEYS = setOf("meta", "users")
     }
 
     private val db: AppDatabase by lazy { AppDatabase.get(context) }
@@ -57,7 +61,13 @@ class SyncManager(private val context: Context) {
             val localVersion = prefs.getInt(KEY_LOCAL_VERSION, 0)
             Log.d(TAG, "localVersion=$localVersion  remoteVersion=$remoteVersion")
 
-            if (localVersion >= remoteVersion) {
+            // Eğer Room'da hiç kelime yoksa, eski bir bug nedeniyle version kaydedilmiş
+            // ama kelimeler yazılmamış olabilir. Bu durumda her zaman sync yap.
+            val roomWordCount = db.wordDao().countSync()
+            val forceSync = roomWordCount == 0
+            Log.d(TAG, "roomWordCount=$roomWordCount  forceSync=$forceSync")
+
+            if (localVersion >= remoteVersion && !forceSync) {
                 Log.d(TAG, "Already up to date")
                 return SyncResult.UpToDate
             }
@@ -87,21 +97,38 @@ class SyncManager(private val context: Context) {
             .get()
             .await()
 
-        return snapshot.child(FIELD_SCHEMA_VERSION).getValue(Long::class.java)?.toInt()
+        Log.d(TAG, "meta/version raw value: ${snapshot.value}  exists=${snapshot.exists()}")
+
+        // Firebase'de meta/version direkt bir sayı olarak saklanabilir (örn: 1)
+        // ya da bir obje olarak { schemaVersion: 1 } şeklinde olabilir.
+        // Her iki durumu da destekliyoruz:
+        val direct = snapshot.getValue(Long::class.java)?.toInt()
+        if (direct != null) return direct
+
+        val nested = snapshot.child(FIELD_SCHEMA_VERSION).getValue(Long::class.java)?.toInt()
+        if (nested != null) return nested
+
+        Log.w(TAG, "meta/version okunamadı. snapshot.value=${snapshot.value}")
+        return null
     }
 
     private suspend fun fetchAllWords(): List<Word> {
+        // Words are stored at Firebase root level with numeric keys ("0", "1", etc.).
+        // Non-word nodes such as "meta" and "users" are excluded by key.
         val snapshot = FirebaseRealtimeDatabaseClient
             .root
-            .child(COL_WORDS)
             .get()
             .await()
 
-        return snapshot.children.mapNotNull { child ->
-            runCatching { child.toWord() }
-                .onFailure { Log.w(TAG, "Skipping malformed node ${child.key}", it) }
-                .getOrNull()
-        }
+        Log.d(TAG, "Root snapshot children count: ${snapshot.childrenCount}")
+
+        return snapshot.children
+            .filter { child -> child.key !in EXCLUDED_ROOT_KEYS }
+            .mapNotNull { child ->
+                runCatching { child.toWord() }
+                    .onFailure { Log.w(TAG, "Skipping malformed node ${child.key}", it) }
+                    .getOrNull()
+            }
     }
 
     private suspend fun upsertToRoom(words: List<Word>) {

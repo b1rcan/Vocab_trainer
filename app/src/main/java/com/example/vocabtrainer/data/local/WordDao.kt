@@ -13,4 +13,6 @@ interface WordDao {
     @Query("SELECT * FROM words WHERE wrongCount > correctCount") fun weak(): LiveData<List<Word>>
     @Query("SELECT * FROM words WHERE isLearned=0 LIMIT 20") fun daily(): LiveData<List<Word>>
     @Query("SELECT * FROM words ORDER BY RANDOM() LIMIT :n") suspend fun random(n: Int): List<Word>
+    @Query("SELECT COUNT(*) FROM words") suspend fun countSync(): Int
 }
+

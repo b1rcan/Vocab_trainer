@@ -44,7 +44,7 @@ object SyncScheduler {
         WorkManager.getInstance(context)
             .enqueueUniqueWork(
                 SyncWorker.WORK_NAME + "_once",
-                ExistingWorkPolicy.KEEP,       // don't restart if already queued
+                ExistingWorkPolicy.REPLACE,    // her açılışta yeniden sync yap
                 request
             )
     }
