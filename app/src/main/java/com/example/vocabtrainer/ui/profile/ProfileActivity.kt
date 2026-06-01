@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.vocabtrainer.R
 import com.example.vocabtrainer.LoginActivity
 import com.example.vocabtrainer.databinding.ActivityProfileBinding
 import com.example.vocabtrainer.notification.NotificationHelper
