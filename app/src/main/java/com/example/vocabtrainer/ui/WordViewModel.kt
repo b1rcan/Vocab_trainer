@@ -23,4 +23,5 @@ class WordViewModel(app: Application) : AndroidViewModel(app) {
     fun delete(w: Word) = viewModelScope.launch { repo.delete(w) }
     fun fetchWord(word: String) = viewModelScope.launch { _apiResult.value = repo.fetchWord(word) }
     suspend fun randomWords(n: Int) = repo.random(n)
+    fun syncFromFirebase() = repo.syncFromFirebase()
 }

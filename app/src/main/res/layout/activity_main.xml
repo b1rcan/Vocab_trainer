@@ -8,7 +8,7 @@
         android:background="@color/orange" android:orientation="vertical"
         android:padding="16dp" android:paddingTop="40dp">
         <TextView android:id="@+id/tvGreeting" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="Merhaba, Ahmet :)"
+            android:layout_height="wrap_content" android:text="Merhabalar :)))"
             android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Bugünkü hedefin: 20 kelime" android:textColor="#FFDDBB"
@@ -66,26 +66,17 @@
                         android:text="Doğruluk" android:textColor="@color/text_gray" android:textSize="11sp"/>
                 </LinearLayout>
 
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1" android:background="@drawable/bg_card"
-                    android:orientation="vertical" android:padding="12dp"
-                    android:gravity="center" android:layout_marginStart="5dp">
-                    <TextView android:id="@+id/tvStreak" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="12"
-                        android:textColor="@color/text_main" android:textSize="22sp" android:textStyle="bold"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Gün serisi" android:textColor="@color/text_gray" android:textSize="11sp"/>
-                </LinearLayout>
+
             </LinearLayout>
 
-            <!-- Başla butonu -->
+
             <Button android:id="@+id/btnStart"
                 android:layout_width="match_parent" android:layout_height="48dp"
                 android:background="@drawable/bg_orange_btn" android:text="@string/start_learning"
                 android:textColor="@color/white" android:textSize="15sp" android:textStyle="bold"
                 android:stateListAnimator="@null" android:layout_marginBottom="16dp"/>
 
-            <!-- Son öğrenilenler -->
+
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="Son öğrenilenler" android:textColor="@color/text_gray"
                 android:textSize="12sp" android:layout_marginBottom="8dp"/>
@@ -97,7 +88,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Alt nav -->
+
     <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
         android:background="@color/white" android:orientation="horizontal"
         android:gravity="center_vertical"
