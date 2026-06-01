@@ -82,6 +82,16 @@
                     android:layout_height="wrap_content" android:checked="true"/>
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_orange_btn"
+                android:text="Çıkış Yap"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
