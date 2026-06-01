@@ -8,7 +8,7 @@ import com.example.vocabtrainer.notification.NotificationHelper
 import com.example.vocabtrainer.streak.StreakManager
 import com.example.vocabtrainer.ui.WordViewModel
 import com.google.firebase.auth.FirebaseAuth
-
+import com.example.vocabtrainer.R
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityProfileBinding

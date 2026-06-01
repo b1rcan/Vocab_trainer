@@ -36,7 +36,11 @@ class SyncManager(private val context: Context) {
         private const val FIELD_SCHEMA_VERSION = "schemaVersion"
     }
 
-    private val db: AppDatabase by lazy { AppDatabase.get(context) }
+    private lateinit var db: AppDatabase
+
+    init {
+        db = AppDatabase.get(context) as AppDatabase
+    }
     private val prefs: SharedPreferences by lazy {
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
@@ -93,7 +97,6 @@ class SyncManager(private val context: Context) {
     private suspend fun fetchAllWords(): List<Word> {
         val snapshot = FirebaseRealtimeDatabaseClient
             .root
-            .child(COL_WORDS)
             .get()
             .await()
 

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1073128909025",
+    "firebase_url": "https://vocabtrainer-6bf8a-default-rtdb.firebaseio.com",
     "project_id": "vocabtrainer-6bf8a",
     "storage_bucket": "vocabtrainer-6bf8a.firebasestorage.app"
   },

@@ -8,12 +8,12 @@ import com.example.vocabtrainer.data.local.AppDatabase
 import com.example.vocabtrainer.data.local.Word
 import com.example.vocabtrainer.data.remote.model.DictionaryResponse
 import com.example.vocabtrainer.sync.SeenWordsPrefs
-import com.example.vocabtrainer.ui.wordlist.pickUnseen
 import kotlinx.coroutines.launch
+import com.example.vocabtrainer.ui.wordlist.pickUnseen
 const val DAILY_WORD_COUNT = 20;
 class WordViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val repo       = WordRepository(AppDatabase.get(app))
+    private val repo = WordRepository(AppDatabase.get(app) as AppDatabase)
     private val seenPrefs  = SeenWordsPrefs(app)
 
     val all      = repo.all
