@@ -12,7 +12,7 @@
             android:layout_height="wrap_content" android:text=""
             android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold"/>
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        <TextView android:id="@+id/tvDailyGoal" android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="@string/daily_goal" android:textColor="#FFDDBB"
             android:textSize="13sp" android:layout_marginTop="2dp"/>
     </LinearLayout>
@@ -107,8 +107,10 @@
             android:layout_height="match_parent" android:layout_weight="1"
             android:orientation="vertical" android:gravity="center"
             android:clickable="true" android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="🏠" android:textSize="18sp"/>
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_home"
+                android:tint="@color/orange"
+                android:contentDescription="Ana Sayfa"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/nav_home" android:textColor="@color/orange" android:textSize="10sp"/>
         </LinearLayout>
@@ -117,8 +119,10 @@
             android:layout_height="match_parent" android:layout_weight="1"
             android:orientation="vertical" android:gravity="center"
             android:clickable="true" android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="📖" android:textSize="18sp"/>
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_book"
+                android:tint="@color/text_light"
+                android:contentDescription="Kelimeler"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/nav_words" android:textColor="@color/text_light" android:textSize="10sp"/>
         </LinearLayout>
@@ -127,8 +131,10 @@
             android:layout_height="match_parent" android:layout_weight="1"
             android:orientation="vertical" android:gravity="center"
             android:clickable="true" android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="🧩" android:textSize="18sp"/>
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_quiz"
+                android:tint="@color/text_light"
+                android:contentDescription="Quiz"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/nav_quiz" android:textColor="@color/text_light" android:textSize="10sp"/>
         </LinearLayout>
@@ -137,8 +143,10 @@
             android:layout_height="match_parent" android:layout_weight="1"
             android:orientation="vertical" android:gravity="center"
             android:clickable="true" android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="🔄" android:textSize="18sp"/>
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_replay"
+                android:tint="@color/text_light"
+                android:contentDescription="Tekrar"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/nav_review" android:textColor="@color/text_light" android:textSize="10sp"/>
         </LinearLayout>
@@ -147,8 +155,10 @@
             android:layout_height="match_parent" android:layout_weight="1"
             android:orientation="vertical" android:gravity="center"
             android:clickable="true" android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="👤" android:textSize="18sp"/>
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_person"
+                android:tint="@color/text_light"
+                android:contentDescription="Profil"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="@string/nav_profile" android:textColor="@color/text_light" android:textSize="10sp"/>
         </LinearLayout>
