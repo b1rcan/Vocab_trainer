@@ -1,8 +1,10 @@
 package com.example.vocabtrainer.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.vocabtrainer.LoginActivity
 import com.example.vocabtrainer.databinding.ActivityProfileBinding
 import com.example.vocabtrainer.notification.NotificationHelper
 import com.example.vocabtrainer.streak.StreakManager
@@ -47,6 +49,15 @@ class ProfileActivity : AppCompatActivity() {
         b.switchNotif.setOnCheckedChangeListener { _, on ->
             if (on) NotificationHelper.schedule(this)
             else NotificationHelper.cancel(this)
+        }
+
+        b.btnLogout.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(this, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(intent)
+            finish()
         }
     }
 }
